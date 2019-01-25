@@ -3,6 +3,7 @@ FROM golang:alpine AS builder
 
 COPY . /go/src/github.com/concourse/docker-image-resource
 ENV CGO_ENABLED 0
+ENV AWS_SDK_LOAD_CONFIG true
 COPY assets/ /assets
 RUN go build -o /assets/check github.com/concourse/docker-image-resource/cmd/check
 RUN go build -o /assets/print-metadata github.com/concourse/docker-image-resource/cmd/print-metadata
