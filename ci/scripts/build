@@ -2,6 +2,9 @@
 
 set -e -x
 
+release_dir="$( cd "$( dirname "$0" )" && cd ../.. && pwd )"
+workspace_dir="$( cd "${release_dir}" && cd .. && pwd )"
+
 BUILT_RESOURCE=$PWD/built-resource
 
 DOCKER_VERSION=$(cat docker/config/docker-version | sed 's/^v//')
@@ -24,3 +27,5 @@ tar xzvf "docker-${DOCKER_VERSION}.tgz"
 go build -o ./ecr-login github.com/concourse/docker-image-resource/vendor/github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cmd
 
 cp -a ./* ${BUILT_RESOURCE}/
+
+cp "${workspace_dir}/${DOCKERFILE_DIR}/Dockerfile" ${BUILT_RESOURCE}/
