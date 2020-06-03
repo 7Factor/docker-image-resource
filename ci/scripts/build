@@ -4,7 +4,7 @@ set -e -x
 
 BUILT_RESOURCE=$PWD/built-resource
 
-DOCKER_VERSION=$(cat docker/version | sed 's/^v//')
+DOCKER_VERSION=$(cat docker/config/docker-version | sed 's/^v//')
 
 export GOPATH=$PWD/gopath
 export PATH=$PWD/gopath/bin:$PATH
