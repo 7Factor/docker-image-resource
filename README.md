@@ -64,7 +64,7 @@ Note: docker registry must be [v2](https://docs.docker.com/registry/spec/api/).
 
   ```yaml
   client_certs:
-  - domain: example.com:443
+  - domain: example.com
     cert: |
       -----BEGIN CERTIFICATE-----
       ...
@@ -73,7 +73,7 @@ Note: docker registry must be [v2](https://docs.docker.com/registry/spec/api/).
       -----BEGIN RSA PRIVATE KEY-----
       ...
       -----END RSA PRIVATE KEY-----
-  - domain: 10.244.6.2:443
+  - domain: 10.244.6.2
     cert: |
       -----BEGIN CERTIFICATE-----
       ...
@@ -86,7 +86,7 @@ Note: docker registry must be [v2](https://docs.docker.com/registry/spec/api/).
 
   Each entry specifies the x509 certificate and key to use for authenticating
   against the docker registry residing at the specified domain. The domain
-  should match the first component of `repository`, including the port.
+  should match the first component of `repository`.
 
  * `max_concurrent_downloads`: *Optional.* Maximum concurrent downloads.
 
@@ -159,7 +159,7 @@ version is the image's digest.
   to the later stages, or in the metadata of the final stage.
   
   The
-  [build metadata](https://concourse-ci.org/implementing-resources.html#resource-metadata)
+  [build metadata](https://concourse-ci.org/implementing-resource-types.html#resource-metadata)
   environment variables provided by Concourse will be expanded in the values
   (the syntax is `$SOME_ENVVAR` or `${SOME_ENVVAR}`).
 
@@ -309,10 +309,11 @@ environment is consistent across any `docker` enabled platform. When the docker
 image builds, the test are run inside the docker container, on failure they
 will stop the build.
 
-Build the image and run the tests with the following command:
+Run the tests with the following commands for both `alpine` and `ubuntu` images:
 
 ```sh
-docker build -t docker-image-resource .
+docker build -t docker-image-resource -f dockerfiles/alpine/Dockerfile .
+docker build -t docker-image-resource -f dockerfiles/ubuntu/Dockerfile .
 ```
 
 To use the newly built image, push it to a docker registry that's accessible to
